@@ -1,0 +1,118 @@
+# Flight Plan Integrity Ledger
+
+**Permissioned immutable ledger for flight-plan integrity, auditability and faster recovery**
+
+This project implements a low-cost, hybrid integrity layer for Air Traffic Management (ATM) flight plans.  
+It runs **alongside** existing flight-processing systems (e.g. NATS) and provides:
+
+- Cryptographic proof of every accepted / amended flight plan
+- Tamper-evident audit trail (hash chain + Ed25519 signatures)
+- Independent source of truth for airlines, ANSPs, airports and regulators
+- Faster post-incident investigation and state recovery
+
+> **Design principle**: Minimal on-ledger data + hybrid architecture = low operational cost while delivering high integrity value.
+
+## Current status (v0.1 prototype)
+
+Working local prototype with:
+
+- Canonical flight-plan model + deterministic SHA-256 hashing
+- Ed25519 key generation, signing and verification
+- Append-only hash-chain ledger (file-backed for zero-ops demos)
+- Ledger Writer + independent Verifier
+- Recovery service that reconstructs the last known good set of accepted plans and can export JSON
+- End-to-end CLI demo that records plans, verifies them, checks the chain, and demonstrates recovery after a simulated outage
+- Technical note ready for outreach (see `docs/technical-note/`)
+
+```bash
+# Quick demo (from repo root)
+PYTHONPATH=src python -m flight_plan_ledger.cli.main demo
+```
+
+## Why this exists
+
+Major flight-processing outages (such as the September 2026 NATS event) expose the cost of single points of failure and opaque internal state.  
+An independent, immutable record of what was submitted and accepted dramatically reduces investigation time, dispute cost, and recovery complexity.
+
+## High-level architecture
+
+```
+Airline / Operator
+        │
+        ▼
+   [Ingestor]  ──► validates & normalises flight plan
+        │
+        ▼
+   [Ledger Writer]  ──► hashes plan + signs + appends to permissioned ledger
+        │
+        ▼
+   Permissioned Ledger (nodes run by NATS, major airlines, CAA, etc.)
+        │
+        ├──► [Verifier]   (any authorised party can verify)
+        └──► [Recovery]   (replay ledger to reconstruct last known good state)
+```
+
+The primary ATC decision path remains unchanged. This ledger is an integrity & audit sidecar.
+
+## Repository structure
+
+```
+flight-plan-ledger/
+├── src/flight_plan_ledger/     # Working Python prototype
+│   ├── models/                 # Canonical plan + LedgerEntry
+│   ├── crypto/                 # Hashing + Ed25519
+│   ├── ledger/                 # Store, Writer, Verifier
+│   └── cli/                    # Command-line interface + demo
+├── examples/sample-flight-plans/
+├── docs/                       # Architecture, data model, governance, ADRs
+├── packages/                   # (future multi-language packages)
+├── services/                   # (future deployable service skeletons)
+├── infra/                      # Docker etc.
+└── scripts/
+```
+
+## Quick start
+
+```bash
+# 1. Ensure dependencies (cryptography, pydantic, click, orjson)
+pip install cryptography pydantic click orjson
+
+# 2. Run the full demo
+PYTHONPATH=src python -m flight_plan_ledger.cli.main demo
+
+# 3. Useful commands
+PYTHONPATH=src python -m flight_plan_ledger.cli.main list
+PYTHONPATH=src python -m flight_plan_ledger.cli.main verify-chain
+PYTHONPATH=src python -m flight_plan_ledger.cli.main init-keys
+PYTHONPATH=src python -m flight_plan_ledger.cli.main record --plan examples/sample-flight-plans/qtr23_doha_lhr.json
+PYTHONPATH=src python -m flight_plan_ledger.cli.main verify --plan examples/sample-flight-plans/qtr23_doha_lhr.json
+```
+
+## Design constraints we deliberately accept
+
+1. **Permissioned only** – no public chain, no tokenomics.
+2. **Minimal data on ledger** – only hash + metadata; full plan stays off-ledger.
+3. **Hybrid** – does not replace the real-time ATC processor.
+4. **Low operational cost** – prioritise simple, auditable components over maximum decentralisation.
+
+## Next steps
+
+- [x] Core data model & cryptographic primitives
+- [x] Minimal viable ledger writer + verifier + hash chain
+- [x] Sample flight-plan ingestion & end-to-end demo
+- [ ] Richer recovery service (export last-known-good set)
+- [ ] Multi-node / multi-writer demo
+- [ ] Governance & key-management tooling
+- [ ] Technical note for outreach to authorities
+
+## Documentation
+
+- [Architecture Overview](docs/architecture/overview.md)
+- [Hybrid Design](docs/architecture/hybrid-design.md)
+- [Ledger Entry Model](docs/data-model/ledger-entry.md)
+- [Flight Plan Hashing](docs/data-model/flight-plan-hash.md)
+- [ADR 0001 – Permissioned Ledger](docs/adr/0001-permissioned-ledger.md)
+
+---
+
+*This is an early-stage exploratory project focused on practical resilience for ATM systems.*

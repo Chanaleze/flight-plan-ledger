@@ -1,0 +1,22 @@
+# Local development multi-node ledger (placeholder)
+# Will be expanded once we choose the concrete ledger technology.
+
+version: "3.9"
+
+services:
+  # Example placeholder – real services will be added later
+  ledger-node-1:
+    image: alpine:3.20
+    command: ["sleep", "infinity"]
+    volumes:
+      - ledger-data-1:/data
+
+  ledger-node-2:
+    image: alpine:3.20
+    command: ["sleep", "infinity"]
+    volumes:
+      - ledger-data-2:/data
+
+volumes:
+  ledger-data-1:
+  ledger-data-2:

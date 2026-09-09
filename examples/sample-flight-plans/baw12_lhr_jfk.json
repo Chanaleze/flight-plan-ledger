@@ -1,0 +1,9 @@
+{
+  "callsign": "BAW12",
+  "aircraft_id": "G-ZBJH",
+  "dof": "2026-09-09",
+  "origin": "EGLL",
+  "destination": "KJFK",
+  "departure_time_utc": "2026-09-09T10:15:00Z",
+  "route": "EGLL DCT KJFK"
+}

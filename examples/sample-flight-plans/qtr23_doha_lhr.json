@@ -1,0 +1,9 @@
+{
+  "callsign": "QTR23",
+  "aircraft_id": "A7-BAA",
+  "dof": "2026-09-09",
+  "origin": "OTHH",
+  "destination": "EGLL",
+  "departure_time_utc": "2026-09-09T07:30:00Z",
+  "route": "OTHH DCT EGLL"
+}

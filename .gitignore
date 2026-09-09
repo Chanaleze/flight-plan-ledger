@@ -1,0 +1,63 @@
+# Dependencies
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment & secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+keys/
+
+# Logs & runtime
+logs/
+*.log
+tmp/
+temp/
+.cache/
+
+# Test & coverage
+coverage/
+.nyc_output/
+htmlcov/
+.pytest_cache/
+.tox/
+.mypy_cache/
+
+# Docker / local data
+data/
+volumes/
+*.db
+*.sqlite
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# OS
+Thumbs.db
+
+# Prototype runtime data
+data/
+*.jsonl

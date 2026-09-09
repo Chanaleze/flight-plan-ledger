@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flight-plan-ledger"
+version = "0.1.0"
+description = "Permissioned immutable ledger for flight-plan integrity and audit"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+  {name = "Flight Plan Ledger Contributors"}
+]
+dependencies = [
+  "cryptography>=42.0.0",
+  "pydantic>=2.0.0",
+  "click>=8.0.0",
+]
+
+[project.scripts]
+fpl = "flight_plan_ledger.cli.main:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
