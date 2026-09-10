@@ -37,6 +37,8 @@ temp/
 
 # Test & coverage
 coverage/
+.coverage
+.coverage.*
 .nyc_output/
 htmlcov/
 .pytest_cache/

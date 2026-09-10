@@ -103,3 +103,9 @@ def test_normalize_accepts_loose_dict(sample_plan_dict):
 def test_normalize_rejects_missing_fields():
     with pytest.raises(Exception):
         normalize_flight_plan({"callsign": "QTR23"})  # missing required fields
+
+
+def test_explicit_none_departure_time_ok(sample_plan_dict):
+    plan = normalize_flight_plan({**sample_plan_dict, "departure_time_utc": None})
+    assert plan.departure_time_utc is None
+    assert plan.content_hash().startswith("sha256:")

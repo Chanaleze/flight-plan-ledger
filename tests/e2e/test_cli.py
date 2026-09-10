@@ -121,9 +121,93 @@ def test_verify_chain_empty_ok(tmp_path: Path):
     assert "empty" in r.output.lower() or "valid" in r.output.lower()
 
 
+def test_verify_chain_without_known_keys(tmp_path: Path):
+    """verify-chain must work when no public key file exists (keys optional)."""
+    runner = CliRunner()
+    keys_dir, ledger, key_id = _base_args(tmp_path)
+    plan_file = _write_plan(tmp_path / "plan.json")
+    # Generate keys in a *different* dir so the verify-chain keys-dir is empty
+    other_keys = tmp_path / "other-keys"
+    assert runner.invoke(cli, ["init-keys", "--key-id", key_id, "--keys-dir", str(other_keys)]).exit_code == 0
+    assert runner.invoke(cli, [
+        "record", "--plan", str(plan_file),
+        "--keys-dir", str(other_keys), "--ledger", str(ledger),
+    ]).exit_code == 0
+    r = runner.invoke(cli, [
+        "verify-chain", "--ledger", str(ledger),
+        "--key-id", key_id, "--keys-dir", str(keys_dir),  # empty dir
+    ])
+    assert r.exit_code == 0
+    assert "valid" in r.output.lower()
+
+
 def test_recover_empty_ledger(tmp_path: Path):
     runner = CliRunner()
     _, ledger, _ = _base_args(tmp_path)
     r = runner.invoke(cli, ["recover", "--ledger", str(ledger)])
     assert r.exit_code == 0
     assert "No accepted plans" in r.output or "0 accepted" in r.output
+
+
+def test_recover_no_summary_only_exports(tmp_path: Path):
+    runner = CliRunner()
+    keys_dir, ledger, key_id = _base_args(tmp_path)
+    plan_file = _write_plan(tmp_path / "plan.json")
+    assert runner.invoke(cli, ["init-keys", "--key-id", key_id, "--keys-dir", str(keys_dir)]).exit_code == 0
+    assert runner.invoke(cli, [
+        "record", "--plan", str(plan_file),
+        "--keys-dir", str(keys_dir), "--ledger", str(ledger),
+    ]).exit_code == 0
+    out_json = tmp_path / "quiet-recovery.json"
+    r = runner.invoke(cli, [
+        "recover", "--ledger", str(ledger),
+        "--output", str(out_json), "--no-summary",
+    ])
+    assert r.exit_code == 0, r.output
+    assert "Last known good" not in r.output  # summary suppressed
+    assert out_json.exists()
+
+
+def test_list_empty_ledger(tmp_path: Path):
+    runner = CliRunner()
+    _, ledger, _ = _base_args(tmp_path)
+    r = runner.invoke(cli, ["list", "--ledger", str(ledger)])
+    assert r.exit_code == 0
+    assert "Ledger is empty" in r.output
+
+
+def test_verify_missing_public_key_fails(tmp_path: Path):
+    runner = CliRunner()
+    keys_dir, ledger, key_id = _base_args(tmp_path)
+    plan_file = _write_plan(tmp_path / "plan.json")
+    # No init-keys: public key file does not exist
+    r = runner.invoke(cli, [
+        "verify", "--plan", str(plan_file),
+        "--key-id", key_id, "--keys-dir", str(keys_dir), "--ledger", str(ledger),
+    ])
+    assert r.exit_code == 1
+    assert "Public key not found" in r.output
+
+
+def test_verify_chain_broken_fails(tmp_path: Path):
+    import json
+
+    runner = CliRunner()
+    keys_dir, ledger, key_id = _base_args(tmp_path)
+    assert runner.invoke(cli, ["init-keys", "--key-id", key_id, "--keys-dir", str(keys_dir)]).exit_code == 0
+    plan_file = _write_plan(tmp_path / "plan.json")
+    other = _write_plan(tmp_path / "other.json", callsign="BAW99")
+    for p in (plan_file, other):
+        assert runner.invoke(cli, [
+            "record", "--plan", str(p),
+            "--keys-dir", str(keys_dir), "--ledger", str(ledger),
+        ]).exit_code == 0
+    # Corrupt the second entry's link
+    lines = ledger.read_text(encoding="utf-8").strip().splitlines()
+    second = json.loads(lines[1])
+    second["previous_entry_hash"] = "sha256:" + "0" * 64
+    ledger.write_text(lines[0] + "\n" + json.dumps(second) + "\n", encoding="utf-8")
+
+    r = runner.invoke(cli, ["verify-chain", "--ledger", str(ledger)])
+    assert r.exit_code == 1
+    assert "Chain break" in r.output

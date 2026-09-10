@@ -22,7 +22,7 @@ dependencies = [
 fpl = "flight_plan_ledger.cli.main:cli"
 
 [project.optional-dependencies]
-test = ["pytest>=8.0.0"]
+test = ["pytest>=8.0.0", "pytest-cov>=5.0.0"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -30,3 +30,15 @@ where = ["src"]
 [tool.pytest.ini_options]
 pythonpath = ["src", "."]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_lines = [
+  'if __name__ == "__main__":',
+  "pragma: no cover",
+]
