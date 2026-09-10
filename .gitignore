@@ -66,3 +66,7 @@ data/
 recovery.json
 recovery-*.json
 data/recovery-*.json
+
+# Local Node tooling (opencode-ai dev install, keep out of git)
+package.json
+package-lock.json
