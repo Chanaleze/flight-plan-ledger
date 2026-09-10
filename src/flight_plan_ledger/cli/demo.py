@@ -16,7 +16,7 @@ from flight_plan_ledger.models.ledger_entry import EntryStatus
 
 def run_demo(keys_dir: Path, ledger_path: Path) -> None:
     print("=" * 60)
-    print("Flight Plan Integrity Ledger – Live Demo")
+    print("Flight Plan Integrity Ledger - Live Demo")
     print("=" * 60)
     print()
 

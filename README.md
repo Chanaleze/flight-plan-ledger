@@ -110,6 +110,7 @@ PYTHONPATH=src python -m flight_plan_ledger.cli.main verify --plan examples/samp
 - [Architecture Overview](docs/architecture/overview.md)
 - [Hybrid Design](docs/architecture/hybrid-design.md)
 - [NATS System Background](docs/research/nats-system-background.md)
+- [Project Profile, Business Model & Way Forward](docs/PROJECT-PROFILE-AND-WAY-FORWARD.md)
 - [Ledger Entry Model](docs/data-model/ledger-entry.md)
 - [Flight Plan Hashing](docs/data-model/flight-plan-hash.md)
 - [ADR 0001 – Permissioned Ledger](docs/adr/0001-permissioned-ledger.md)
