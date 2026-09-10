@@ -61,21 +61,24 @@ flight-plan-ledger/
 ├── src/flight_plan_ledger/     # Working Python prototype
 │   ├── models/                 # Canonical plan + LedgerEntry
 │   ├── crypto/                 # Hashing + Ed25519
-│   ├── ledger/                 # Store, Writer, Verifier
+│   ├── ledger/                 # Store, Writer, Verifier, Recovery
 │   └── cli/                    # Command-line interface + demo
+├── tests/                      # Unit, integration, e2e + docs guardrails (100% cov)
+├── docs/                       # Profile, architecture, data model, governance, ADRs
+├── ops/                        # Task log + runbooks (see .opencode/skills/)
 ├── examples/sample-flight-plans/
-├── docs/                       # Architecture, data model, governance, ADRs
-├── packages/                   # (future multi-language packages)
-├── services/                   # (future deployable service skeletons)
-├── infra/                      # Docker etc.
-└── scripts/
+├── contracts/                  # OpenAPI sketch (draft, unimplemented)
+├── services/                   # Service map + interface sketches (future)
+├── packages/                   # Future multi-language packages (marked)
+├── infra/                      # Docker example only; no k8s/terraform yet
+└── scripts/                    # Dev-setup + demo helpers
 ```
 
 ## Quick start
 
 ```bash
-# 1. Ensure dependencies (cryptography, pydantic, click, orjson)
-pip install cryptography pydantic click orjson
+# 1. Install the package with test tools (single source of truth: pyproject.toml)
+pip install -e ".[test]"
 
 # 2. Run the full demo
 PYTHONPATH=src python -m flight_plan_ledger.cli.main demo
@@ -114,6 +117,8 @@ PYTHONPATH=src python -m flight_plan_ledger.cli.main verify --plan examples/samp
 - [Ledger Entry Model](docs/data-model/ledger-entry.md)
 - [Flight Plan Hashing](docs/data-model/flight-plan-hash.md)
 - [ADR 0001 – Permissioned Ledger](docs/adr/0001-permissioned-ledger.md)
+- [ADR 0002 – Sidecar Architecture](docs/adr/0002-sidecar-architecture.md)
+- [ADR 0003 – Minimal On-Ledger Data](docs/adr/0003-minimal-on-ledger-data.md)
 
 ---
 

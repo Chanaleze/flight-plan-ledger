@@ -1,13 +1,4 @@
-# @flight-plan-ledger/crypto
+# packages/crypto — FUTURE
 
-Cryptographic primitives used across the project.
-
-## Scope (v0.1)
-
-- SHA-256 (and future hash algorithms)
-- Ed25519 signing & verification (primary)
-- Optional: ECDSA P-256 for broader compatibility
-- Hash chaining helpers
-- Simple Merkle tree (later)
-
-No blockchain-specific cryptography in this package – keep it pure and reusable.
+Reserved for a future multi-language crypto package (hashing, Ed25519).
+The working Python implementation lives in `src/flight_plan_ledger/crypto/`.

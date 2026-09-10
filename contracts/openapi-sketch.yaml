@@ -1,0 +1,108 @@
+# Sketch only — NOT implemented, NOT served anywhere.
+# A future OPTIONAL read-only HTTP façade over the CLI surface
+# (verify / verify-chain / recover). No write endpoints, ever:
+# recording stays a privileged writer operation, never an HTTP call
+# in this design. See services/README.md and ADR 0002.
+openapi: 3.0.3
+info:
+  title: Flight Plan Integrity Ledger — Verification/Recovery API (SKETCH)
+  version: 0.1.0-sketch
+  description: >
+    Draft of a future optional HTTP API for authorised parties to verify
+    plans, check chain health, and fetch the last-known-good set.
+    Mirrors the proven CLI 1:1. No real-time ATC function.
+servers:
+  - url: https://ledger.example.invalid/v1
+    description: Placeholder — no such server exists.
+paths:
+  /plans/verify:
+    get:
+      summary: Verify a flight plan (≡ `fpl verify`)
+      parameters:
+        - name: plan_hash
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: '^sha256:[0-9a-f]{64}$'
+      responses:
+        '200':
+          description: Verification result (≡ VerificationResult)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [found, entries, message]
+                properties:
+                  found: { type: boolean }
+                  signature_valid: { type: boolean, nullable: true }
+                  message: { type: string }
+                  entries:
+                    type: array
+                    items: { $ref: '#/components/schemas/LedgerEntry' }
+        '400':
+          description: Malformed plan_hash.
+  /chain/status:
+    get:
+      summary: Check whole-chain integrity (≡ `fpl verify-chain`)
+      responses:
+        '200':
+          description: Chain status
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [ok, message, entry_count]
+                properties:
+                  ok: { type: boolean }
+                  message: { type: string }
+                  entry_count: { type: integer }
+  /recovery/last-known-good:
+    get:
+      summary: Last-known-good accepted set (≡ `fpl recover`)
+      parameters:
+        - name: as_of
+          in: query
+          required: false
+          schema: { type: string, format: date-time }
+        - name: only_accepted
+          in: query
+          required: false
+          schema: { type: boolean, default: true }
+      responses:
+        '200':
+          description: Recovery export (≡ RecoveryService.export_json payload)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [exported_at, entry_count, entries]
+                properties:
+                  exported_at: { type: string, format: date-time }
+                  entry_count: { type: integer }
+                  entries:
+                    type: array
+                    items: { $ref: '#/components/schemas/LedgerEntry' }
+components:
+  schemas:
+    LedgerEntry:
+      type: object
+      required: [entry_id, sequence, timestamp, submitter_id, plan_hash, status]
+      properties:
+        entry_id: { type: string, format: uuid }
+        sequence: { type: integer }
+        timestamp: { type: string, format: date-time }
+        submitter_id: { type: string, example: 'org:nats' }
+        plan_hash: { type: string, example: 'sha256:<hex>' }
+        plan_hash_alg: { type: string, default: 'sha256' }
+        status: { type: string, enum: [ACCEPTED, REJECTED, AMENDED, CANCELLED] }
+        previous_entry_hash: { type: string, nullable: true }
+        metadata: { type: object }
+        replaces_entry_id: { type: string, nullable: true }
+        signature:
+          type: object
+          nullable: true
+          properties:
+            alg: { type: string, example: 'Ed25519' }
+            key_id: { type: string }
+            value: { type: string }

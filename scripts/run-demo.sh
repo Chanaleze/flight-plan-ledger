@@ -8,4 +8,4 @@ pip install -e . -q
 
 echo
 echo "Running end-to-end demo…"
-python -m flight_plan_ledger.cli.main demo
+PYTHONPATH=src python -m flight_plan_ledger.cli.main demo
