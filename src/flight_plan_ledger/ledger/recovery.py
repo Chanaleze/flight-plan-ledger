@@ -63,14 +63,14 @@ class RecoveryService:
     def export_summary(self, entries: List[LedgerEntry]) -> str:
         """Human-readable summary for operators."""
         lines = [
-            f"Last known good set – {len(entries)} accepted plan(s)",
+            f"Last known good set - {len(entries)} accepted plan(s)",
             "-" * 60,
         ]
         for e in entries:
             meta = e.metadata
             lines.append(
                 f"  [{e.sequence:04d}] {meta.get('callsign', '?'):8s}  "
-                f"{meta.get('origin', '?')} → {meta.get('destination', '?')}  "
+                f"{meta.get('origin', '?')} -> {meta.get('destination', '?')}  "
                 f"aircraft={meta.get('aircraft_id', '?')}  "
                 f"dof={meta.get('dof', '?')}  "
                 f"recorded={e.timestamp.strftime('%Y-%m-%d %H:%M:%SZ')}"

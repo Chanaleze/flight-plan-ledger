@@ -56,3 +56,7 @@ Simple append-only log with Merkle tree or sequential hashes. Very cheap to run 
 Stronger multi-party consensus and built-in membership services. Higher operational complexity.
 
 **Recommendation for first pilot**: Start with Option A, design the data model so it can later be moved onto a full DLT without breaking clients.
+
+## See also
+
+- [NATS System Background](../research/nats-system-background.md) – why the FPRSA-R / NAS layer needs an independent integrity sidecar.

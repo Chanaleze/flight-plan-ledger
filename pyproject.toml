@@ -21,5 +21,12 @@ dependencies = [
 [project.scripts]
 fpl = "flight_plan_ledger.cli.main:cli"
 
+[project.optional-dependencies]
+test = ["pytest>=8.0.0"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]

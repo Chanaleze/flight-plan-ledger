@@ -61,3 +61,8 @@ Thumbs.db
 # Prototype runtime data
 data/
 *.jsonl
+
+# Local recovery exports (operational artefacts, keep out of git)
+recovery.json
+recovery-*.json
+data/recovery-*.json

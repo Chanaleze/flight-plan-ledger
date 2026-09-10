@@ -82,7 +82,7 @@ class Verifier:
         """
         entries = self.store.get_all()
         if not entries:
-            return True, "Empty ledger – chain is trivially valid"
+            return True, "Empty ledger - chain is trivially valid"
 
         for i, entry in enumerate(entries):
             if i == 0:
@@ -98,4 +98,4 @@ class Verifier:
                     f"expected previous {expected_prev}, got {entry.previous_entry_hash}",
                 )
 
-        return True, f"Chain valid – {len(entries)} entries"
+        return True, f"Chain valid - {len(entries)} entries"

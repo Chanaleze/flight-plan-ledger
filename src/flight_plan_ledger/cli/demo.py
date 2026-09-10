@@ -26,11 +26,11 @@ def run_demo(keys_dir: Path, ledger_path: Path) -> None:
     public_path = keys_dir / f"{key_id}.public.pem"
 
     if not private_path.exists():
-        print("→ Generating writer key pair…")
+        print("-> Generating writer key pair...")
         private_key, public_key = generate_keypair()
         save_keypair(private_key, public_key, private_path, public_path)
     else:
-        print("→ Loading existing writer key pair…")
+        print("-> Loading existing writer key pair...")
         private_key, public_key = load_keypair(private_path, public_path)
 
     # Fresh ledger for the demo
@@ -76,28 +76,28 @@ def run_demo(keys_dir: Path, ledger_path: Path) -> None:
         ),
     ]
 
-    print("→ Recording three flight plans as ACCEPTED…")
+    print("-> Recording three flight plans as ACCEPTED...")
     entries = []
     for plan in plans:
         entry = writer.record(plan, status=EntryStatus.ACCEPTED)
         entries.append(entry)
-        print(f"   • {plan.callsign:8s}  {plan.origin}→{plan.destination}  "
-              f"seq={entry.sequence}  hash={entry.plan_hash[7:19]}…")
+        print(f"   - {plan.callsign:8s}  {plan.origin}->{plan.destination}  "
+              f"seq={entry.sequence}  hash={entry.plan_hash[7:19]}...")
 
     print()
-    print("→ Verifying each plan independently…")
+    print("-> Verifying each plan independently...")
     for plan in plans:
         result = verifier.verify_plan(plan)
-        status = "✓ VALID" if (result.found and result.signature_valid) else "✗ FAIL"
+        status = "[OK] VALID" if (result.found and result.signature_valid) else "[FAIL] FAIL"
         print(f"   {status}  {plan.callsign}")
 
     print()
-    print("→ Checking full hash-chain integrity…")
+    print("-> Checking full hash-chain integrity...")
     ok, msg = verifier.verify_chain()
-    print(f"   {'✓' if ok else '✗'} {msg}")
+    print(f"   {'[OK]' if ok else '[FAIL]'} {msg}")
 
     print()
-    print("→ Simulating primary system outage + recovery view…")
+    print("-> Simulating primary system outage + recovery view...")
     from flight_plan_ledger.ledger.recovery import RecoveryService
     recovery = RecoveryService(store)
     print(recovery.export_summary(recovery.last_known_good()))

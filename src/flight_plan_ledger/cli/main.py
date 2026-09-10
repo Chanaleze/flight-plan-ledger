@@ -112,11 +112,11 @@ def verify_cmd(plan_file: str, key_id: str, keys_dir: str, ledger: str):
     result = verifier.verify_plan(plan)
     click.echo(result)
     if result.found and result.signature_valid:
-        click.echo("✓ Plan is present and signature is valid")
+        click.echo("[OK] Plan is present and signature is valid")
         for e in result.entries:
             click.echo(f"  - seq={e.sequence} status={e.status.value} at {e.timestamp.isoformat()}")
     else:
-        click.echo("✗ Verification failed or plan not found")
+        click.echo("[FAIL] Verification failed or plan not found")
         sys.exit(1)
 
 
@@ -152,8 +152,8 @@ def list_cmd(ledger: str):
     for e in entries:
         click.echo(
             f"[{e.sequence:04d}] {e.status.value:10s}  {e.metadata.get('callsign', '?'):8s}  "
-            f"{e.metadata.get('origin', '?')}→{e.metadata.get('destination', '?')}  "
-            f"hash={e.plan_hash[7:19]}…  id={e.entry_id[:8]}…"
+            f"{e.metadata.get('origin', '?')}->{e.metadata.get('destination', '?')}  "
+            f"hash={e.plan_hash[7:19]}...  id={e.entry_id[:8]}..."
         )
 
 
