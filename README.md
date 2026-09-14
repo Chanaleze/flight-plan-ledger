@@ -93,6 +93,8 @@ PYTHONPATH=src python -m flight_plan_ledger.cli.main verify --plan examples/samp
 
 ## Design constraints we deliberately accept
 
+Canonical version: [Project Principles](docs/PRINCIPLES.md) (P1). Summary:
+
 1. **Permissioned only** – no public chain, no tokenomics.
 2. **Minimal data on ledger** – only hash + metadata; full plan stays off-ledger.
 3. **Hybrid** – does not replace the real-time ATC processor.
@@ -103,17 +105,29 @@ PYTHONPATH=src python -m flight_plan_ledger.cli.main verify --plan examples/samp
 - [x] Core data model & cryptographic primitives
 - [x] Minimal viable ledger writer + verifier + hash chain
 - [x] Sample flight-plan ingestion & end-to-end demo
-- [ ] Richer recovery service (export last-known-good set)
+- [x] Richer recovery service (export last-known-good set — `recover --output`, drilled per `ops/RECOVERY-RUNBOOK.md`)
 - [ ] Multi-node / multi-writer demo
 - [ ] Governance & key-management tooling
-- [ ] Technical note for outreach to authorities
+- [x] Technical note for outreach to authorities (see `docs/technical-note/`)
 
 ## Documentation
 
+Full index: [docs/README.md](docs/README.md). Start here:
+
+- [Project Profile, Business Model & Way Forward](docs/PROJECT-PROFILE-AND-WAY-FORWARD.md)
+- [Principles](docs/PRINCIPLES.md) · [Decision Log](docs/DECISIONS.md) · [SWOT](docs/SWOT.md) · [R&D Agenda](docs/RD-AGENDA.md)
+
+Background research:
+
+- [NATS System Background](docs/research/nats-system-background.md)
+- [NATS History and SWOT](docs/research/nats-history-and-swot.md)
+- [NATS Incident Reports](docs/research/nats-incident-reports.md)
+
+Architecture & design:
+
 - [Architecture Overview](docs/architecture/overview.md)
 - [Hybrid Design](docs/architecture/hybrid-design.md)
-- [NATS System Background](docs/research/nats-system-background.md)
-- [Project Profile, Business Model & Way Forward](docs/PROJECT-PROFILE-AND-WAY-FORWARD.md)
+- [NATS Integration Fit](docs/architecture/nats-integration-fit.md)
 - [Ledger Entry Model](docs/data-model/ledger-entry.md)
 - [Flight Plan Hashing](docs/data-model/flight-plan-hash.md)
 - [ADR 0001 – Permissioned Ledger](docs/adr/0001-permissioned-ledger.md)

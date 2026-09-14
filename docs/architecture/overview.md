@@ -6,6 +6,8 @@ Provide a **tamper-evident, independently verifiable record** of every flight pl
 
 ## Design principles
 
+Canonical version: [Project Principles](../PRINCIPLES.md) (P1). Summary:
+
 1. **Sidecar, not replacement**  
    The ledger never sits in the critical decision loop of controllers or the primary flight-processing system.
 
@@ -47,7 +49,9 @@ Provide a **tamper-evident, independently verifiable record** of every flight pl
 - Dispute between airline and ANSP about “what was submitted” → resolved by ledger.
 - Need for rapid post-incident investigation → cryptographic timeline available in minutes instead of days.
 
-## Technology options (still open)
+## Technology options (decided: DEC-002)
+
+**Option A – Hash chain + signatures (lowest cost)** — **chosen for v0.1.**
 
 **Option A – Hash chain + signatures (lowest cost)**  
 Simple append-only log with Merkle tree or sequential hashes. Very cheap to run and audit.
@@ -55,8 +59,7 @@ Simple append-only log with Merkle tree or sequential hashes. Very cheap to run 
 **Option B – Permissioned DLT (Hyperledger Fabric / similar)**  
 Stronger multi-party consensus and built-in membership services. Higher operational complexity.
 
-**Recommendation for first pilot**: Start with Option A, design the data model so it can later be moved onto a full DLT without breaking clients.
-
+**Decided for first pilot (DEC-002)**: Option A, with the data model shaped so the same entries can later move onto a full DLT without breaking clients.
 ## See also
 
 - [NATS System Background](../research/nats-system-background.md) – why the FPRSA-R / NAS layer needs an independent integrity sidecar.

@@ -28,6 +28,18 @@ def test_readme_links_nats_background():
     assert "docs/research/nats-system-background.md" in text
 
 
+def test_root_readme_links_knowledge_base():
+    text = README.read_text(encoding="utf-8")
+    for link in (
+        "docs/PRINCIPLES.md",
+        "docs/DECISIONS.md",
+        "docs/SWOT.md",
+        "docs/RD-AGENDA.md",
+        "docs/architecture/nats-integration-fit.md",
+    ):
+        assert link in text, f"root README.md missing {link}"
+
+
 def test_overview_links_nats_background():
     text = OVERVIEW.read_text(encoding="utf-8")
     assert "nats-system-background" in text.lower()

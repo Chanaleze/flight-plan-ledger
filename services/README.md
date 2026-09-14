@@ -39,3 +39,5 @@ Rules for any future service split (from the sidecar design):
 2. No service sits in the real-time ATC path — the whole map is a sidecar.
 3. `verifier` and `recovery` are **read-only**; only `ledger-writer` appends.
 4. Every write path must be followed by `verify-chain` (see `ops` rules).
+5. Tap-in points and pilot scope live in `docs/architecture/nats-integration-fit.md`;
+   behaviour contracts in each service's `INTERFACE.md` mirror the prototype exactly.

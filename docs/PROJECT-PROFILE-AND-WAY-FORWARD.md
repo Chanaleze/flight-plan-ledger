@@ -122,7 +122,7 @@ A **hybrid integrity sidecar** (not a replacement for NATS systems):
 
 | CLI demo + sample plans | Working |
 
-| Test suite | 77 tests, 100% coverage on current suite |
+| Test suite | Passing (current count logged in `ops/TASK-LOG.md`; 100% coverage on code touched) |
 
 | Multi-party / Hyperledger-style network | Not started (future) |
 
