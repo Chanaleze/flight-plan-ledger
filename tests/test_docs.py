@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 RESEARCH = ROOT / "docs" / "research" / "nats-system-background.md"
+FIT = ROOT / "docs" / "architecture" / "nats-integration-fit.md"
 PROFILE = ROOT / "docs" / "PROJECT-PROFILE-AND-WAY-FORWARD.md"
 README = ROOT / "README.md"
 OVERVIEW = ROOT / "docs" / "architecture" / "overview.md"
@@ -30,6 +31,47 @@ def test_readme_links_nats_background():
 def test_overview_links_nats_background():
     text = OVERVIEW.read_text(encoding="utf-8")
     assert "nats-system-background" in text.lower()
+
+
+def test_nats_integration_fit_states_sidecar_principles():
+    assert FIT.exists(), "docs/architecture/nats-integration-fit.md missing"
+    text = FIT.read_text(encoding="utf-8")
+    for marker in (
+        "sidecar",
+        "Never touches",
+        "ADR 0002",
+        "ADR 0003",
+        "Non-claims",
+    ):
+        assert marker in text, f"fit note missing {marker!r}"
+
+
+def test_knowledge_base_docs_exist_with_owners():
+    for name, markers in (
+        ("docs/PRINCIPLES.md", ("P1", "P5", "Sidecar, not replacement", "Eventually consistent", "Key lifecycle")),
+        ("docs/DECISIONS.md", ("DEC-001", "DEC-011", "ADR-0001", "rejected", "accepted")),
+        ("docs/SWOT.md", ("W4", "O4", "sidecar", "Pilot-grade")),
+        ("docs/RD-AGENDA.md", ("RQ-01", "RQ-08", "RQ-12", "Evidence")),
+    ):
+        p = ROOT / name
+        assert p.exists(), f"{name} missing"
+        text = p.read_text(encoding="utf-8")
+        for m in markers:
+            assert m in text, f"{name} missing {m!r}"
+
+
+def test_knowledge_base_rule_exists_with_sync_protocol():
+    p = ROOT / ".opencode" / "instructions" / "knowledge-base.md"
+    assert p.exists(), ".opencode/instructions/knowledge-base.md missing"
+    text = p.read_text(encoding="utf-8")
+    for marker in ("Must Always", "Must Never", "Change protocol", "PRINCIPLES.md"):
+        assert marker in text, f"rule missing {marker!r}"
+
+
+def test_docs_index_links_knowledge_base():
+    text = (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+    for link in ("PRINCIPLES.md", "DECISIONS.md", "SWOT.md", "RD-AGENDA.md"):
+        assert link in text, f"docs/README.md missing {link}"
 
 
 def test_project_profile_exists_with_expected_sections():

@@ -540,6 +540,10 @@ Any move toward operational use would require a formal threat & risk assessment 
 
 - This document is the single high-level profile of the project.
 
+- Binding rules live in `PRINCIPLES.md`; decisions in `DECISIONS.md`;
+  one-page SWOT in `SWOT.md`; research programme in `RD-AGENDA.md`.
+  Agent sync rule: `.opencode/instructions/knowledge-base.md`.
+
 - Detailed technical design lives in `docs/architecture/` and `docs/technical-note/`.
 
 - Operational procedures and task history live under `ops/`.

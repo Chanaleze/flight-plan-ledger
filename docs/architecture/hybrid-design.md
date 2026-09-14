@@ -42,7 +42,10 @@ Therefore we deliberately choose a **hybrid** architecture:
    Airlines can optionally pre-hash and submit a “intent” entry before the official filing. Useful for later dispute resolution.
 
 3. **Recovery mode**  
-   After a primary system outage, the Recovery service can feed the last known good set of plans back into the restored primary system (or into a temporary degraded mode).
+   After a primary system outage, the Recovery service reconstructs the last
+   known good set for a **human-confirmed handoff** to the restoration team —
+   never piped automatically into a live processor (see
+   `ops/RECOVERY-RUNBOOK.md` step 5).
 
 ## What we explicitly do *not* put on the critical path
 

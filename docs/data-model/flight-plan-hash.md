@@ -50,5 +50,8 @@ If canonicalisation is ambiguous, the whole integrity guarantee collapses.
 
 Canonicalisation and hashing logic lives in:
 
-- `packages/models` – schema + normalisation
-- `packages/crypto` – pure hash functions
+- `src/flight_plan_ledger/models` – schema + normalisation
+- `src/flight_plan_ledger/crypto` – pure hash functions
+
+(`packages/` is reserved for future multi-language ports; the interface
+sketches under `services/` pin the behaviour contracts.)

@@ -1,17 +1,25 @@
 # Documentation Index
 
 Categorised map of everything under `docs/`. Start at the top and go deeper
-only as needed.
+only as needed. Agent rule for keeping these in sync:
+`../.opencode/instructions/knowledge-base.md`.
 
 ## Start here
 - [Project Profile, Business Model & Way Forward](PROJECT-PROFILE-AND-WAY-FORWARD.md) — the single high-level profile: problem, product, business model, roadmap, non-goals.
+- [Principles](PRINCIPLES.md) — non-negotiable rules for building, running, and talking about this project.
+- [Decision Log](DECISIONS.md) — what we decided and why (ADRs hold the detail).
+- [SWOT](SWOT.md) — one-page briefable strengths/weaknesses/opportunities/threats.
+- [R&D Agenda](RD-AGENDA.md) — answered vs open research questions and evidence.
 
 ## Background research
 - [NATS System Background](research/nats-system-background.md) — how flight plans flow (IFPS → AMS-UK → FPRSA-R → NAS) and why an integrity sidecar helps.
+- [NATS History and SWOT](research/nats-history-and-swot.md) — from 1962/NATCS and 1970s NAS to FPRSA-R, incident pattern, and SWOT of NATS tech.
+- [NATS Incident Reports](research/nats-incident-reports.md) — retrieved official reports (NATS preliminary + final, CAA CAP2993 + 34 recommendations) with links and verified findings.
 
 ## Architecture & design
 - [Architecture Overview](architecture/overview.md) — goal, principles, components, data flow.
 - [Hybrid Design](architecture/hybrid-design.md) — why a sidecar, integration points, what stays off the critical path.
+- [NATS Integration Fit](architecture/nats-integration-fit.md) — tap-in points, touch/never-touch, CAA-recommendation mapping, pilot scope.
 
 ## Data model
 - [Flight Plan Hashing](data-model/flight-plan-hash.md) — canonical form and hashing rules.

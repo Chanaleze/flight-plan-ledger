@@ -60,3 +60,4 @@ Stronger multi-party consensus and built-in membership services. Higher operatio
 ## See also
 
 - [NATS System Background](../research/nats-system-background.md) – why the FPRSA-R / NAS layer needs an independent integrity sidecar.
+- [NATS Integration Fit](nats-integration-fit.md) – tap-in points, touch/never-touch, and which CAA recommendations a pilot answers.

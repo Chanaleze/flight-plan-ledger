@@ -36,7 +36,8 @@ The ledger is a **hybrid sidecar**:
 **Negative**
 - The ledger is eventually consistent with the primary system by design; brief
   divergence windows must be understood by operators.
-- Recovery replay into a restored primary system needs its own runbook (not yet written).
+- Recovery replay into a restored primary system has its own runbook
+  (`ops/RECOVERY-RUNBOOK.md`): human-confirmed handoff, never automatic.
 
 ## Alternatives considered
 
