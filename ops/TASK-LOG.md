@@ -24,6 +24,7 @@ Format: YYYY-MM-DD | Operator | Action | Result | Notes
 - 2026-09-14 | OpenCode | Collab sweep of remaining docs into the five + 3 doc fixes | Success – folded key hierarchy/rotation, canonicalisation rules, writer/verifier contracts (fail-closed, absence semantics), pilot preconditions, rejected-alternatives table, RQ-00/RQ-12–14 into PRINCIPLES/DECISIONS/SWOT/RD-AGENDA/rule; fixed stale lines (ADR-0002 runbook ref, hybrid re-feed wording vs runbook, hash-doc code paths) | pytest 87 passed; hygiene clean, nothing staged
 - 2026-09-14 | OpenCode | Commit 8ba826c + push to main | Success – 16 files, +916/-5; pre-push: 87 passed, secret scan clean (only benign "no secrets" phrase), data/keys/exports ignored | Pushed 882cdad..8ba826c, working tree clean
 - 2026-09-14 | OpenCode | Handshake upgrades: root README docs map + stale checkboxes fixed, overview points to PRINCIPLES/DEC-002, profile test-count de-rotted, services README links fit note | Success – every arm (README, profile/blueprint, architecture, services) now cross-links the five; 1 new guardrail test | pytest 88 passed; hygiene clean, nothing staged
+- 2026-09-14 | OpenCode | Commit 31f2780 + push to main | Success – 6 files (README, profile, overview, services, tests, log); pre-push: 88 passed, secret scan clean, runtime data ignored | Pushed 8ba826c..31f2780, working tree clean
 
 ## Template for new entries
 - YYYY-MM-DD HH:MM | <name> | <command or action> | Success / Failed | <short note>
