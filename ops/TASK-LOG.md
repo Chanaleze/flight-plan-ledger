@@ -25,6 +25,7 @@ Format: YYYY-MM-DD | Operator | Action | Result | Notes
 - 2026-09-14 | OpenCode | Commit 8ba826c + push to main | Success – 16 files, +916/-5; pre-push: 87 passed, secret scan clean (only benign "no secrets" phrase), data/keys/exports ignored | Pushed 882cdad..8ba826c, working tree clean
 - 2026-09-14 | OpenCode | Handshake upgrades: root README docs map + stale checkboxes fixed, overview points to PRINCIPLES/DEC-002, profile test-count de-rotted, services README links fit note | Success – every arm (README, profile/blueprint, architecture, services) now cross-links the five; 1 new guardrail test | pytest 88 passed; hygiene clean, nothing staged
 - 2026-09-14 | OpenCode | Commit 31f2780 + push to main | Success – 6 files (README, profile, overview, services, tests, log); pre-push: 88 passed, secret scan clean, runtime data ignored | Pushed 8ba826c..31f2780, working tree clean
+- 2026-09-14 | OpenCode | Final recovery drill per runbook (snapshot first) | Success – 5 entries listed, chain valid, 4 accepted plans recovered (seq 2 BAW12, seq 3 EZY8567, seq 4 QTR23 superseding seq 1, seq 5 DRILL01) | Snapshot data/ledger-snapshot-20260914-final-drill.jsonl; export data/recovery-drill.json verified (entry_count 4); read-only, no writes, ledger unchanged since last drill
 
 ## Template for new entries
 - YYYY-MM-DD HH:MM | <name> | <command or action> | Success / Failed | <short note>
