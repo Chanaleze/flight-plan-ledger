@@ -14,6 +14,8 @@ no scheduler — the workflow is the right tool for that job).
 
 Labels `good first issue` / `help wanted` are applied when the issue text
 contains those phrases — i.e. maintainers opt issues in by writing them.
+Native issue/PR templates under `.github/` carry the same checklist and
+labels, so contributors get guidance even before the bot is installed.
 
 ## Run locally
 

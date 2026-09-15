@@ -251,6 +251,23 @@ def test_ci_workflow_runs_both_suites():
         assert marker in text, f".github/workflows/ci.yml missing {marker!r}"
 
 
+def test_community_files_exist_with_expected_content():
+    for name, markers in (
+        (".github/ISSUE_TEMPLATE/bug_report.md", ("labels", "sample", "SECURITY.md")),
+        (".github/ISSUE_TEMPLATE/question.md", ("labels", "question")),
+        (".github/ISSUE_TEMPLATE/documentation.md", ("documentation", "non-goals")),
+        (".github/pull_request_template.md", ("100%", "No secrets", "CONTRIBUTING.md")),
+        ("SECURITY.md", ("chanaleze@live.com", "no bounty", "sample data only")),
+    ):
+        p = ROOT / name
+        assert p.exists(), f"{name} missing"
+        text = p.read_text(encoding="utf-8")
+        for m in markers:
+            assert m in text, f"{name} missing {m!r}"
+    index = (ROOT / "docs" / "index.md").read_text(encoding="utf-8")
+    assert "flight-plan-ledger-henna.vercel.app/demo/" in index
+
+
 def test_bot_package_committable_but_secrets_ignored():
     import subprocess
 

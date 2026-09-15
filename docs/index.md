@@ -16,10 +16,11 @@ title: Flight Plan Integrity Ledger
 ## Live demo
 
 **Try it in 30 seconds** (no signup, sample data only, nothing stored):
-the interactive web demo lets you hash a flight plan, record it with an
+the [live interactive demo](https://flight-plan-ledger-henna.vercel.app/demo/)
+lets you hash a flight plan, record it with an
 ephemeral demo key, verify it, tamper with it, then simulate an outage and
-recover. The demo URL is published in [Public Interactive Demo](demo.md)
-once deployed; the demo runs the real ledger code with throwaway keys and
+recover (how it works and how to redeploy: [Public Interactive Demo](demo.md));
+the demo runs the real ledger code with throwaway keys and
 `org:demo`-stamped entries, so nothing there can be mistaken for an
 operational record.
 
