@@ -1,0 +1,42 @@
+# Continuous integration: run both test suites on every push and PR.
+# Free for public repos. Results appear as commit/PR status checks, which can
+# optionally gate Vercel production promotion (dashboard: Settings →
+# Build and Deployment → Deployment Checks). Promotion is currently left
+# automatic — pre-push gates (pytest + drill + hygiene) remain the primary
+# control; this workflow is the backstop.
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install package with test tools
+        run: pip install -e ".[test]"
+      - name: Full suite with 100% coverage gate on src/
+        run: python -m pytest tests -q --cov=flight_plan_ledger --cov-report=term-missing --cov-fail-under=100
+
+  node:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: bot
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: bot/package-lock.json
+      - name: Install bot dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Bot logic tests + syntax check
+        run: npm test && node --check index.js

@@ -243,6 +243,14 @@ def test_probot_app_scaffolded_with_minimal_permissions():
             assert m in text, f"{name} missing {m!r}"
 
 
+def test_ci_workflow_runs_both_suites():
+    p = ROOT / ".github" / "workflows" / "ci.yml"
+    assert p.exists(), ".github/workflows/ci.yml missing"
+    text = p.read_text(encoding="utf-8")
+    for marker in ("pull_request", "setup-python", "cov-fail-under=100", "setup-node", "npm test"):
+        assert marker in text, f".github/workflows/ci.yml missing {marker!r}"
+
+
 def test_bot_package_committable_but_secrets_ignored():
     import subprocess
 
