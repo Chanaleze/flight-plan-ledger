@@ -1,0 +1,39 @@
+# Polite stale handling (scheduled — Probot has no cron, so this lives here).
+# Runs daily, touches metadata only (labels/comments/close). Exempt labels
+# below are never marked stale.
+name: stale
+
+on:
+  schedule:
+    - cron: "30 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-stale: 60
+          days-before-close: 14
+          exempt-issue-labels: pinned,security,pilot
+          exempt-pr-labels: pinned,security,pilot
+          stale-issue-message: >
+            This issue has been quiet for 60 days, so I'm marking it stale.
+            It will close in 14 days unless there's new activity — just comment
+            to keep it open. If it still matters, tell us what would help move
+            it forward.
+          stale-pr-message: >
+            This PR has been quiet for 60 days, so I'm marking it stale.
+            Comment or push within 14 days to keep it open; otherwise I'll
+            close it to keep the queue honest (reopening later is always fine).
+          close-issue-message: >
+            Closing for inactivity. If this still matters, please reopen with a
+            quick note on current status — happy to pick it back up.
+          close-pr-message: >
+            Closing for inactivity — no reflection on the work. Reopen or open
+            a fresh PR whenever you're ready.

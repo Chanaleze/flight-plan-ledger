@@ -1,0 +1,17 @@
+{
+  "name": "flight-plan-ledger-bot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GitHub automation for the flight-plan-ledger repo: welcome contributors, label issues, post PR checklists.",
+  "main": "index.js",
+  "scripts": {
+    "start": "probot run ./index.js",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "probot": "^12.2.0"
+  }
+}

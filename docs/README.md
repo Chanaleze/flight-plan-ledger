@@ -4,6 +4,9 @@ Categorised map of everything under `docs/`. Start at the top and go deeper
 only as needed. Agent rule for keeping these in sync:
 `../.opencode/instructions/knowledge-base.md`.
 
+Published as a website via GitHub Pages (source: `main` / `docs` folder):
+the public front page is [index.md](index.md) (Jekyll config: [_config.yml](_config.yml)).
+
 ## Start here
 - [Project Profile, Business Model & Way Forward](PROJECT-PROFILE-AND-WAY-FORWARD.md) — the single high-level profile: problem, product, business model, roadmap, non-goals.
 - [Principles](PRINCIPLES.md) — non-negotiable rules for building, running, and talking about this project.
@@ -32,8 +35,11 @@ only as needed. Agent rule for keeping these in sync:
 
 ## Outreach
 - [Technical Note](technical-note/flight-plan-integrity-ledger.md) — the paper for external review.
+- [Public Interactive Demo](demo.md) — browser demo architecture, security model, and deployment (static `demo/` + stateless `/api/demo`).
 
 ## Decisions
 - [ADR 0001 – Permissioned Ledger](adr/0001-permissioned-ledger.md) — why permissioned, why hash-chain first.
 - [ADR 0002 – Sidecar Architecture](adr/0002-sidecar-architecture.md) — never in the safety-critical path.
 - [ADR 0003 – Minimal On-Ledger Data](adr/0003-minimal-on-ledger-data.md) — hash + metadata only.
+- [ADR 0004 – Public Demo Architecture](adr/0004-public-demo.md) — stateless function, ephemeral keys, Vercel default.
+- [ADR 0005 – Deferred Hosted Persistence](adr/0005-deferred-hosted-persistence.md) — file-backed until a pilot demands otherwise.

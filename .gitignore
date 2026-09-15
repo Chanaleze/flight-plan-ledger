@@ -70,5 +70,6 @@ recovery-*.json
 data/recovery-*.json
 
 # Local Node tooling (opencode-ai dev install, keep out of git)
-package.json
-package-lock.json
+# Scoped to root so bot/package.json (the Probot app) stays committable.
+/package.json
+/package-lock.json

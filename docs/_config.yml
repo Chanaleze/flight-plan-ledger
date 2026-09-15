@@ -1,0 +1,17 @@
+# GitHub Pages settings for the docs/ site.
+# Pages source: Deploy from a branch -> main -> /docs
+# Site URL once enabled: https://chanaleze.github.io/flight-plan-ledger/
+title: Flight Plan Integrity Ledger
+description: >-
+  A low-cost, permissioned integrity and recovery layer for flight-plan
+  processing — an audit sidecar that never touches the real-time safety path.
+baseurl: "/flight-plan-ledger" # the repository name; set to "" if using a custom domain
+url: "https://chanaleze.github.io"
+theme: minima
+plugins:
+  - jekyll-relative-links # lets relative links to *.md work on the Pages site
+  - jekyll-seo-tag
+  - jekyll-sitemap
+relative_links:
+  enabled: true
+  collections: false

@@ -1,0 +1,19 @@
+# GitHub App manifest for one-click registration.
+# GitHub → Settings → Developer settings → GitHub Apps → "New GitHub App" →
+# paste this file's contents into the "from a manifest" flow, or run the bot
+# locally and open http://localhost:3000/probot/setup
+name: flight-plan-ledger-helper
+description: Welcomes first-time contributors, labels issues, and posts a demo + safety checklist on PRs.
+url: https://github.com/Chanaleze/flight-plan-ledger
+public: true
+default_events:
+  - issues
+  - pull_request
+default_permissions:
+  issues: write
+  pull_requests: write
+  metadata: read
+# NOTE: replace hook_attributes.url with the bot's public URL after deploying.
+# For local webhook testing use a proxy (smee.io) and put its URL here.
+hook_attributes:
+  url: https://example.com/flight-plan-ledger-bot

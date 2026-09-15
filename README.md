@@ -29,6 +29,10 @@ Working local prototype with:
 PYTHONPATH=src python -m flight_plan_ledger.cli.main demo
 ```
 
+Interactive web demo (hash → sign → verify → recover in the browser):
+see [docs/demo.md](docs/demo.md) — static frontend + one stateless serverless
+function running the real logic with ephemeral demo keys (sample data only).
+
 ## Why this exists
 
 Major flight-processing outages (such as the September 2026 NATS event) expose the cost of single points of failure and opaque internal state.  

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flight Plan Integrity Ledger — Interactive Demo</title>
+<meta name="description" content="Try the flight-plan integrity ledger in 30 seconds: hash a plan, sign it with an ephemeral demo key, verify it, break the chain, recover.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <p class="kicker">Flight Plan Integrity Ledger · demonstration prototype v0.1</p>
+    <h1>Try it in 30 seconds</h1>
+    <p class="lede">Hash a flight plan, record it with an <strong>ephemeral demo key</strong>,
+      verify it, tamper with it, then simulate an outage and recover.
+      No signup, nothing is stored, nothing leaves your sample data behind.</p>
+    <p class="demo-banner" role="note">Public demo · ephemeral demo keys · sample data only ·
+      nothing persists · not connected to any operational ATC system.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card" id="step1">
+    <h2><span class="step">1</span> Load a flight plan &amp; see its hash</h2>
+    <div class="row">
+      <label>Sample plan
+        <select id="sampleSelect">
+          <option value="qtr23_doha_lhr.json">QTR23 · Doha → London Heathrow</option>
+          <option value="baw12_lhr_jfk.json">BAW12 · London Heathrow → New York JFK</option>
+          <option value="ezy8567_lgw_pmi.json">EZY8567 · London Gatwick → Palma</option>
+        </select>
+      </label>
+      <button id="loadSampleBtn" type="button">Load sample</button>
+      <label class="file-label">or upload JSON <input id="fileInput" type="file" accept=".json,application/json"></label>
+    </div>
+    <label class="block-label" for="planInput">Plan JSON (editable — try changing a character)</label>
+    <textarea id="planInput" rows="9" spellcheck="false" placeholder="{&quot;callsign&quot;: &quot;QTR23&quot;, …}"></textarea>
+    <div class="row">
+      <button id="hashBtn" type="button" class="primary">Compute hash</button>
+      <span id="parityBadge" class="badge muted" hidden></span>
+    </div>
+    <h3>Canonical form (exactly what gets hashed)</h3>
+    <pre id="canonicalOut" class="out">—</pre>
+    <p class="hashline">plan hash: <code id="planHashOut">—</code></p>
+  </section>
+
+  <section class="card" id="step2">
+    <h2><span class="step">2</span> Record it on the demo chain</h2>
+    <p class="hint">Signs with a <strong>fresh ephemeral key per entry</strong> (generated on the
+      server, discarded immediately — the private key is never stored or shown).
+      Every entry is stamped <code>org:demo</code> so it can never be mistaken for a real record.</p>
+    <div class="row">
+      <label>Status
+        <select id="statusSelect">
+          <option>ACCEPTED</option>
+          <option>REJECTED</option>
+          <option>AMENDED</option>
+          <option>CANCELLED</option>
+        </select>
+      </label>
+      <button id="signBtn" type="button" class="primary">Sign &amp; append to session chain</button>
+    </div>
+    <div id="entryOut" class="entry" hidden></div>
+  </section>
+
+  <section class="card" id="step3">
+    <h2><span class="step">3</span> Verify — then tamper</h2>
+    <div class="row">
+      <button id="verifyBtn" type="button" class="primary">Verify current plan + entry</button>
+      <button id="tamperBtn" type="button">Tamper a copy &amp; re-verify</button>
+    </div>
+    <div id="verifyOut" class="result" hidden></div>
+  </section>
+
+  <section class="card" id="step4">
+    <h2><span class="step">4</span> Session chain &amp; outage recovery</h2>
+    <p class="hint">Your chain lives only in this page. Simulate a primary-system outage:
+      the demo replays the chain and reconstructs the last known good accepted set.</p>
+    <div id="chainOut" class="chain"><p class="muted">Chain is empty — record an entry above.</p></div>
+    <div class="row">
+      <button id="chainBtn" type="button">Verify chain</button>
+      <button id="recoverBtn" type="button" class="primary">Simulate outage &amp; recover</button>
+      <button id="resetBtn" type="button" class="danger">Reset session</button>
+    </div>
+    <div id="chainResult" class="result" hidden></div>
+    <div id="recoverOut" hidden>
+      <h3>Recovery view — last known good set</h3>
+      <pre id="recoverSummary" class="out">—</pre>
+      <table id="recoverTable">
+        <thead><tr><th>Seq</th><th>Callsign</th><th>Route</th><th>Aircraft</th><th>DoF</th><th>Plan hash</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card" id="about">
+    <h2>How this demo works</h2>
+    <ul>
+      <li><strong>Hashing happens twice:</strong> once in your browser (a tested byte-exact mirror
+        of the Python canonicalization) and once on the server with the real code — the badge in
+        step 1 proves they agree.</li>
+      <li><strong>The server is stateless:</strong> one serverless function runs the actual ledger
+        modules (canonicalize, Ed25519, chain check, recovery). Your chain is sent with each
+        request; nothing is stored server-side.</li>
+      <li><strong>Keys are throwaway:</strong> each signature uses a fresh keypair whose private
+        half is discarded immediately. Demo entries are stamped <code>org:demo</code>.</li>
+      <li>This is a <strong>resilience sidecar prototype</strong>, not an ATC system. It decides
+        nothing and controls nothing — it only remembers and proves.</li>
+    </ul>
+    <p class="links">
+      <a href="https://github.com/Chanaleze/flight-plan-ledger">Source code</a> ·
+      <a href="https://github.com/Chanaleze/flight-plan-ledger/blob/main/docs/technical-note/flight-plan-integrity-ledger.md">Technical note</a> ·
+      <a href="https://github.com/Chanaleze/flight-plan-ledger/blob/main/docs/demo.md">Demo architecture &amp; deployment</a>
+    </p>
+    <p class="muted small">API: <code id="apiBase">…</code> · <span id="apiStatus">checking…</span>
+      (override with <code>?api=https://…/api/demo</code>)</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Flight Plan Integrity Ledger — early-stage exploratory project for ATM resilience research.</p>
+  </div>
+</footer>
+
+<script src="hash.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

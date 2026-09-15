@@ -1,0 +1,4 @@
+# Runtime dependencies for the Vercel demo function (api/demo.py).
+# Mirrors pyproject.toml runtime deps only — no CLI (click) or test tooling.
+cryptography>=42.0.0
+pydantic>=2.0.0

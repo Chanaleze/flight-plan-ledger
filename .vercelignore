@@ -1,0 +1,21 @@
+# Never upload these to a deployment (defense in depth alongside .gitignore).
+# In particular: local keys, ledger data and recovery exports must stay local.
+.venv/
+.venv-wsl/
+__pycache__/
+*.pyc
+.git/
+data/
+*.pem
+*.key
+keys/
+secrets/
+.env
+.env.*
+recovery.json
+recovery-*.json
+*.jsonl
+.pytest_cache/
+.coverage
+htmlcov/
+node_modules/
