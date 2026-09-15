@@ -1,7 +1,8 @@
 # Public Interactive Demo
 
-**Live demo:** TBD — paste the Vercel URL here after the first deploy
-(then link it from `docs/index.md` and the root `README.md`).
+**Live demo:** https://flight-plan-ledger-henna.vercel.app/demo/
+(API at `https://flight-plan-ledger-henna.vercel.app/api/demo`.)
+If the deployment moves, update this URL (and the Pages front page link).
 
 A 30-second, no-signup browser demo of the ledger: load a sample flight plan,
 see its canonical form + hash, record it with an ephemeral demo key, verify it,

@@ -34,6 +34,7 @@ Format: YYYY-MM-DD | Operator | Action | Result | Notes
 - 2026-09-15 | OpenCode | ADR 0005 deferred hosted persistence (file-backed until pilot interest + unmet need) | Success – 116 passed (ADR loop covers 0005), no code touched | Supabase/Railway/Render explicitly later-only; store interface stays swappable
 - 2026-09-15 | OpenCode | Recovery drill per ops/RECOVERY-RUNBOOK.md (snapshot first) | Success – 5 entries listed, chain valid, 4 accepted plans recovered (seq 2 BAW12, seq 3 EZY8567, seq 4 QTR23 superseding seq 1, seq 5 DRILL01) | Snapshot data/ledger-snapshot-20260915-drill.jsonl; export data/recovery-drill.json verified readable (entry_count 4); read-only, no writes, pre-commit gate passed (116 pytest + 10 node:test)
 - 2026-09-15 | OpenCode | Fix Vercel build "No python entrypoint found" | Success – added [tool.vercel] entrypoint="api.demo:handler" to pyproject.toml (handler class itself already matches Vercel's supported BaseHTTPRequestHandler style, verified in current docs); guardrail pins the entrypoint | 116 passed; commit + push to trigger rebuild
+- 2026-09-15 | OpenCode | Live demo verified + URL published (flight-plan-ledger-henna.vercel.app) | Success – live functional check: info demo_only=true, hash matches parity vector, sign forced org:demo + demo-ephemeral key, verify valid, chain valid, recover 1 accepted | URL in docs/demo.md (+ guardrail), 116 passed; commit + push; ready for outreach
 
 ## Template for new entries
 - YYYY-MM-DD HH:MM | <name> | <command or action> | Success / Failed | <short note>

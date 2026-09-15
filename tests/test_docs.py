@@ -198,6 +198,7 @@ def test_demo_docs_exist_with_security_model():
     text = p.read_text(encoding="utf-8")
     for marker in ("ephemeral", "org:demo", "Vercel", "Non-goals", "never", "private key"):
         assert marker in text, f"docs/demo.md missing {marker!r}"
+    assert "flight-plan-ledger-henna.vercel.app" in text, "docs/demo.md missing live demo URL"
 
 
 def test_demo_docs_indexed_and_linked():
