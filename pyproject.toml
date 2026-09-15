@@ -42,3 +42,9 @@ exclude_lines = [
   'if __name__ == "__main__":',
   "pragma: no cover",
 ]
+
+[tool.vercel]
+# Tells Vercel which /api file-based function to load (BaseHTTPRequestHandler
+# subclass in api/demo.py). Required — without it `vercel build` fails with
+# "No python entrypoint found". See docs/demo.md.
+entrypoint = "api.demo:handler"

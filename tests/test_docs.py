@@ -215,6 +215,7 @@ def test_demo_frontend_and_function_exist():
         ("api/demo.py", ("handle_action", "DemoError", "no-store")),
         ("vercel.json", ("demo/", "api/")),
         ("requirements.txt", ("cryptography", "pydantic")),
+        ("pyproject.toml", ('[tool.vercel]', 'entrypoint = "api.demo:handler"')),
     ):
         p = ROOT / name
         assert p.exists(), f"{name} missing"
