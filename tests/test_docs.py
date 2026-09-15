@@ -213,7 +213,7 @@ def test_demo_frontend_and_function_exist():
         ("demo/hash.js", ("canonicalJson", "sha256Hex", "schema_version")),
         ("demo/app.js", ("api/demo", "verify_chain", "recover", "textContent")),
         ("demo/styles.css", (".card", ".badge")),
-        ("api/demo.py", ("handle_action", "DemoError", "no-store")),
+        ("api/demo.py", ("handle_action", "DemoError", "no-store", "STATIC_ROUTES")),
         ("vercel.json", ("demo/", "api/")),
         ("requirements.txt", ("cryptography", "pydantic")),
         ("pyproject.toml", ('[tool.vercel]', 'entrypoint = "api.demo:handler"')),

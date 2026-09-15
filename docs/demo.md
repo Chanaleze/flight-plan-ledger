@@ -22,6 +22,9 @@ serverless function (api/demo.py → src/flight_plan_ledger/demo_service.py)
   │  verify       plan vs entry + signature (read-only)
   │  verify_chain hash-link walk + signature checks (read-only)
   │  recover      last-known-good accepted set (read-only)
+  │  static       serves /demo/* + /examples/* itself (the declared Vercel
+  │               entrypoint routes every path to the function, so the
+  │               adapter restores the static layout with a strict whitelist)
 ```
 
 This is **not** the product API — that remains an unimplemented sketch
