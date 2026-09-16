@@ -234,6 +234,7 @@ def test_probot_app_scaffolded_with_minimal_permissions():
         ("bot/app.yml", ("issues: write", "pull_requests: write", "metadata: read")),
         ("bot/.env.example", ("APP_ID", "PRIVATE_KEY_PATH", "WEBHOOK_SECRET")),
         ("bot/README.md", ("smee", "Install App", "private key")),
+        ("bot/INSTALL.md", ("When to install", "smee", "Install App", "TASK-LOG.md", "Uninstall")),
         (".github/workflows/stale.yml", ("schedule", "actions/stale", "exempt")),
     ):
         p = ROOT / name
@@ -303,3 +304,5 @@ def test_bot_package_committable_but_secrets_ignored():
     assert ignored("package.json"), "root package.json must stay ignored"
     assert ignored("bot/.env"), "bot/.env must stay ignored"
     assert ignored("bot/some-key.private-key.pem"), "*.pem must stay ignored"
+    assert ignored("chanaleze-recovery-codes.txt"), "recovery codes must stay ignored"
+    assert ignored("bot/host-recovery-code.txt"), "recovery codes must stay ignored"

@@ -27,6 +27,8 @@ build/
 *.key
 secrets/
 keys/
+# Account/app recovery codes (2FA, hosts, etc.) - never commit these
+*recovery-cod*
 
 # Logs & runtime
 logs/

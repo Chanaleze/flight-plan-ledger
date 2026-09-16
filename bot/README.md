@@ -34,6 +34,9 @@ webhook URL. (ngrok works too — see `ops/NGROK-RUNBOOK.md`, Procedure A.)
 
 ## Register & install (one time, ~10 min)
 
+Full preserved procedure: [`INSTALL.md`](INSTALL.md) — follow it when the
+repo has real external traffic, not before. Short version:
+
 1. GitHub → Settings → Developer settings → GitHub Apps → **New GitHub App**,
    or open `http://localhost:3000/probot/setup` while the bot runs.
 2. Feed it `bot/app.yml` (manifest flow), replacing `hook_attributes.url`
