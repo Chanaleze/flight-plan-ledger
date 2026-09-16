@@ -104,6 +104,8 @@ Canonical version: [Project Principles](docs/PRINCIPLES.md) (P1). Summary:
 3. **Hybrid** – does not replace the real-time ATC processor.
 4. **Low operational cost** – prioritise simple, auditable components over maximum decentralisation.
 
+The boundary is the product: [Operational Limitations](docs/OPERATIONAL-LIMITATIONS.md) (six limits, pilot preconditions — link it in every serious conversation).
+
 ## Next steps
 
 - [x] Core data model & cryptographic primitives

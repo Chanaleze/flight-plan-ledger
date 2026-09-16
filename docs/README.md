@@ -10,6 +10,7 @@ the public front page is [index.md](index.md) (Jekyll config: [_config.yml](_con
 ## Start here
 - [Project Profile, Business Model & Way Forward](PROJECT-PROFILE-AND-WAY-FORWARD.md) — the single high-level profile: problem, product, business model, roadmap, non-goals.
 - [Principles](PRINCIPLES.md) — non-negotiable rules for building, running, and talking about this project.
+- [Operational Limitations](OPERATIONAL-LIMITATIONS.md) — the product boundary for external readers: six limits, pilot preconditions, comms rule.
 - [Decision Log](DECISIONS.md) — what we decided and why (ADRs hold the detail).
 - [SWOT](SWOT.md) — one-page briefable strengths/weaknesses/opportunities/threats.
 - [R&D Agenda](RD-AGENDA.md) — answered vs open research questions and evidence.

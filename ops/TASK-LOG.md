@@ -39,6 +39,7 @@ Format: YYYY-MM-DD | Operator | Action | Result | Notes
 - 2026-09-15 | OpenCode | CI workflow (.github/workflows/ci.yml) for Vercel deployment checks | Success – python job (3.13, pytest + 100% cov gate) + node job (npm ci + npm test + syntax check) on push/PR; YAML validated, guardrail added | 117 passed; commit + push; promotion gate intentionally left automatic (pre-push gates stay primary); later: CI jobs never started — account locked (billing), not a code fault
 - 2026-09-15 | OpenCode | Community files: issue/PR templates + SECURITY.md + live URL on Pages front page | Success – 3 issue templates (labels preset, sample-data-only), PR template mirroring bot checklist, SECURITY.md (chanaleze@live.com, no bounty, demo-grade scope), docs/index.md links live demo directly | 118 passed; commit + push
 - 2026-09-16 | OpenCode | Fix CI-only coverage miss (cli/main.py:133): e2e tests read CWD drill residue | Success – 3 verify-chain calls now pass explicit --keys-dir (tmp dirs), making them hermetic; reproduced CI conditions locally (keys moved aside) → 118 passed, 100% cov | Commit + push; CI re-runs green
+- 2026-09-16 | OpenCode | Outreach-facing boundary note docs/OPERATIONAL-LIMITATIONS.md | Success – six limits + reaction filter + six written pilot preconditions + comms rule; linked from profile §9, README, docs index, Pages front page; operator detail stays in ops/LIMITATIONS.md (no duplication) | 119 passed; commit + push
 
 ## Template for new entries
 - YYYY-MM-DD HH:MM | <name> | <command or action> | Success / Failed | <short note>

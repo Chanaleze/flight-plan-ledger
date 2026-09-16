@@ -510,6 +510,12 @@ Any move toward operational use would require a formal threat & risk assessment 
 
 
 
+Outreach-facing boundary note (link it in every serious conversation):
+`OPERATIONAL-LIMITATIONS.md` — the six limits, how to read reactions to
+them, and the six written preconditions for any pilot.
+
+
+
 ---
 
 

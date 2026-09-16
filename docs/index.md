@@ -117,7 +117,7 @@ Explicit non-goals:
 - We will not seek operational deployment without a sponsoring organisation and an appropriate assurance process.
 - We will not inflate the technology story beyond what the prototype and design actually deliver.
 
-Authoritative statements: [Project Profile §6–§9](PROJECT-PROFILE-AND-WAY-FORWARD.md) · [Principles](PRINCIPLES.md)
+Authoritative statements: [Project Profile §6–§9](PROJECT-PROFILE-AND-WAY-FORWARD.md) · [Principles](PRINCIPLES.md) · [Operational Limitations](OPERATIONAL-LIMITATIONS.md) (link it in every serious conversation)
 
 ---
 

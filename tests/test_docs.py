@@ -268,6 +268,25 @@ def test_community_files_exist_with_expected_content():
     assert "flight-plan-ledger-henna.vercel.app/demo/" in index
 
 
+def test_operational_limitations_note_exists_and_is_linked():
+    p = ROOT / "docs" / "OPERATIONAL-LIMITATIONS.md"
+    assert p.exists(), "docs/OPERATIONAL-LIMITATIONS.md missing"
+    text = p.read_text(encoding="utf-8")
+    for marker in (
+        "product boundary",
+        "No real-time role",
+        "No enforced revocation",
+        "pilot",
+        "TASK-LOG",
+        "ops/LIMITATIONS.md",
+    ):
+        assert marker in text, f"docs/OPERATIONAL-LIMITATIONS.md missing {marker!r}"
+    assert "OPERATIONAL-LIMITATIONS.md" in (ROOT / "docs" / "README.md").read_text(encoding="utf-8")
+    assert "OPERATIONAL-LIMITATIONS.md" in (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "OPERATIONAL-LIMITATIONS.md" in (ROOT / "docs" / "index.md").read_text(encoding="utf-8")
+    assert "OPERATIONAL-LIMITATIONS.md" in PROFILE.read_text(encoding="utf-8")
+
+
 def test_bot_package_committable_but_secrets_ignored():
     import subprocess
 
