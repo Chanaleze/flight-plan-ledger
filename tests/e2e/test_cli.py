@@ -53,7 +53,8 @@ def test_init_keys_then_record_verify_chain_list_recover(tmp_path: Path):
     assert r.exit_code == 0, r.output
     assert "VALID" in r.output or "valid" in r.output.lower()
 
-    r = runner.invoke(cli, ["verify-chain", "--ledger", str(ledger)])
+    r = runner.invoke(cli, ["verify-chain", "--ledger", str(ledger),
+                             "--keys-dir", str(keys_dir)])
     assert r.exit_code == 0, r.output
     assert "valid" in r.output.lower()
 
@@ -116,7 +117,10 @@ def test_verify_unknown_plan_fails(tmp_path: Path):
 def test_verify_chain_empty_ok(tmp_path: Path):
     runner = CliRunner()
     _, ledger, _ = _base_args(tmp_path)
-    r = runner.invoke(cli, ["verify-chain", "--ledger", str(ledger)])
+    # Point at a keys dir that cannot exist, so the test never depends on
+    # leftover state in the developer's data/ directory.
+    r = runner.invoke(cli, ["verify-chain", "--ledger", str(ledger),
+                             "--keys-dir", str(tmp_path / "no-such-keys")])
     assert r.exit_code == 0
     assert "empty" in r.output.lower() or "valid" in r.output.lower()
 
@@ -208,6 +212,7 @@ def test_verify_chain_broken_fails(tmp_path: Path):
     second["previous_entry_hash"] = "sha256:" + "0" * 64
     ledger.write_text(lines[0] + "\n" + json.dumps(second) + "\n", encoding="utf-8")
 
-    r = runner.invoke(cli, ["verify-chain", "--ledger", str(ledger)])
+    r = runner.invoke(cli, ["verify-chain", "--ledger", str(ledger),
+                             "--keys-dir", str(keys_dir)])
     assert r.exit_code == 1
     assert "Chain break" in r.output
